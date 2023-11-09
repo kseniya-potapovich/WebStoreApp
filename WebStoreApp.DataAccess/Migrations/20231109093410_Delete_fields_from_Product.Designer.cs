@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStoreApp.DataAccess;
 
@@ -10,9 +11,11 @@ using WebStoreApp.DataAccess;
 namespace WebStoreApp.DataAccess.Migrations
 {
     [DbContext(typeof(WebStoreAppDbContext))]
-    partial class WebStoreAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231109093410_Delete_fields_from_Product")]
+    partial class Delete_fields_from_Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
