@@ -6,12 +6,12 @@
 
         public string Name { get; set; }
 
-        public string Category { get; set; }
+        public string CategoryId { get; set; }
+
+        public int SellerId { get; set; }
 
         public string Discription { get; set; }
 
         public double Price { get; set; }
-
-        public List<User> Users { get; set; }
     }
 }

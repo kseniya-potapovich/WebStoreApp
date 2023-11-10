@@ -31,5 +31,15 @@ namespace WebStoreApp.Controllers
             await _webStoreAppContext.SaveChangesAsync();
             return product.Id;
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<int>> Delete([FromBody] int productId)
+        {
+            var product = await _webStoreAppContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            _webStoreAppContext.Remove(product);
+            await _webStoreAppContext.SaveChangesAsync();
+            return product.Id;
+        }
+
     }
 }

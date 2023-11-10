@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace WedStoreApp.Entities
 {
-    internal class Seller
+    public class Category
     {
         public int Id { get; set; }
 
-        public string NameCompany { get; set; }
-
-        public string Reviews { get; set; }
-
+        public string Name { get; set; }
     }
 }

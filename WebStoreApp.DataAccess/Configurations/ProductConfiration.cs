@@ -15,7 +15,6 @@ namespace WebStoreApp.DataAccess.Configurations
         {
             builder.ToTable("Products", "dbo").HasKey(x => x.Id);
             
-            builder.HasKey(_ => _.Users).WithOne(_ => _.Products).HasForeignKey(_ => _.UserId);
         }
     }
 }

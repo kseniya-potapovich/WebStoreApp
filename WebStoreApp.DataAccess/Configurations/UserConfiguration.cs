@@ -10,7 +10,6 @@ namespace WebStoreApp.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users", "dbo").HasKey(x => x.Id);
-            builder.HasKey(t => t.Products);
         }
     }
 }
