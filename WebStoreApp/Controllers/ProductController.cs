@@ -10,12 +10,10 @@ namespace WebStoreApp.Controllers
     public class ProductController : ControllerBase
     {
         public readonly WebStoreAppDbContext _webStoreAppContext;
-        public readonly WebStoreAppDbContext _Id;
 
         public ProductController(WebStoreAppDbContext webStoreAppContext, WebStoreAppDbContext id)
         {
             _webStoreAppContext = webStoreAppContext;
-            _Id = id;
         }
 
         [HttpGet]

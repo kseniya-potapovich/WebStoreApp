@@ -14,10 +14,13 @@ namespace WebStoreApp.DataAccess
 
         public DbSet<User> Users { get; set; }
 
+      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiration());
+           
         }
     }
 }
