@@ -11,7 +11,7 @@ namespace WebStoreApp.Controllers
     {
         public readonly WebStoreAppDbContext _webStoreAppContext;
 
-        public ProductController(WebStoreAppDbContext webStoreAppContext, WebStoreAppDbContext id)
+        public ProductController(WebStoreAppDbContext webStoreAppContext)
         {
             _webStoreAppContext = webStoreAppContext;
         }

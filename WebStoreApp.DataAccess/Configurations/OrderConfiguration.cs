@@ -9,12 +9,12 @@ using WedStoreApp.Entities;
 
 namespace WebStoreApp.DataAccess.Configurations
 {
-    public class SellerConfiration : IEntityTypeConfiguration<Seller>
+    public class OrderConfiguration: IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<Seller> builder)
-        {
-            builder.ToTable("Sellers", "dbo").HasKey(x => x.Id);
+        public void Configure(EntityTypeBuilder<Order> builder)
+            {
+                builder.ToTable("Orders", "dbo").HasKey(x => x.Id);
 
-        }
-    }
+            }
+     }
 }
