@@ -22,14 +22,6 @@ namespace WebStoreApp.DataAccess.Repository
             return product.Id;
         }
 
-        public async Task<int> Delete(int id)
-        {
-            var product = await _webStoreAppContext.Products.FirstOrDefaultAsync(x => x.Id == id);
-            _webStoreAppContext.Remove(product);
-            await _webStoreAppContext.SaveChangesAsync();
-            return product.Id;
-        }
-
         public async Task<List<Product>> GetAll()
         {
             return await _webStoreAppContext.Products.ToListAsync();

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreApp.DataAccess;
+using WebStoreApp.Dto;
+using WebStoreApp.Services.Contract;
 using WedStoreApp.Entities;
 
 namespace WebStoreApp.Controllers
@@ -9,35 +11,23 @@ namespace WebStoreApp.Controllers
     [Route("[controller]")]
     public class UserController: ControllerBase
     {
-        public readonly WebStoreAppDbContext _webStoreAppContext;
+        public readonly IUserService _userService;
 
-        public UserController(WebStoreAppDbContext webStoreAppContext)
+        public UserController(IUserService userService)
         {
-            _webStoreAppContext = webStoreAppContext;
+            _userService = userService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<ActionResult<UserDto>> GetById(int id)
         {
-            return await _webStoreAppContext.Users.ToListAsync();
+            return await _userService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] User user)
+        public async Task<ActionResult<int>> Create([FromBody] UserDto user)
         {
-            await _webStoreAppContext.Users.AddAsync(user);
-            await _webStoreAppContext.SaveChangesAsync();
-            return user.Id;
+            return await _userService.Create(user);
         }
-
-        [HttpDelete]
-        public async Task<ActionResult<int>> Delete([FromBody] int userId)
-        {
-            var user = await _webStoreAppContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            _webStoreAppContext.Remove(user);
-            await _webStoreAppContext.SaveChangesAsync();
-            return user.Id;
-        }
-
     }
 }

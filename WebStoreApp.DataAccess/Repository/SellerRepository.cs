@@ -22,14 +22,6 @@ namespace WebStoreApp.DataAccess.Repository
             return seller.Id;
         }
 
-        public async Task<int> Delete(int id)
-        {
-            var seller = await _webStoreAppContext.Sellers.FirstOrDefaultAsync(x => x.Id == id);
-            _webStoreAppContext.Remove(seller);
-            await _webStoreAppContext.SaveChangesAsync();
-            return seller.Id;
-        }
-
         public async Task<List<Seller>> GetAll()
         {
             return await _webStoreAppContext.Sellers.ToListAsync();

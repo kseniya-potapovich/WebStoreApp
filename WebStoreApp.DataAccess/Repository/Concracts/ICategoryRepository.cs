@@ -14,7 +14,5 @@ namespace WebStoreApp.DataAccess.Repository.Concracts
         Task<List<Category>> GetAll();
 
         Task<int> Create(Category category);
-
-        Task<int> Delete(int id);
     }
 }

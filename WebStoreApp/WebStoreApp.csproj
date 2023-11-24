@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebStoreApp.DataAccess\WebStoreApp.DataAccess.csproj" />
+    <ProjectReference Include="..\WebStoreApp.Services.Contract\WebStoreApp.Services.Contract.csproj" />
     <ProjectReference Include="..\WedStoreApp.Entities\WedStoreApp.Entities.csproj" />
   </ItemGroup>
 

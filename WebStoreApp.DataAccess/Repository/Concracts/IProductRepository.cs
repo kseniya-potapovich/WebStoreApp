@@ -14,7 +14,5 @@ namespace WebStoreApp.DataAccess.Repository.Concracts
         Task<List<Product>> GetAll();
 
         Task<int> Create(Product product);
-
-        Task<int> Delete(int id);
     }
 }

@@ -31,13 +31,5 @@ namespace WebStoreApp.DataAccess.Repository
             await _webStoreAppContext.SaveChangesAsync();
             return user.Id;
         }
-
-        public async Task<int> Delete(int id)
-        {
-            var user = await _webStoreAppContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-            _webStoreAppContext.Remove(user);
-            await _webStoreAppContext.SaveChangesAsync();
-            return user.Id;
-        }
     }
 }

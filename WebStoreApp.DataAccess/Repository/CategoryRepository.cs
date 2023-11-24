@@ -20,15 +20,7 @@ namespace WebStoreApp.DataAccess.Repository
             await _webStoreAppContext.Categories.AddAsync(category);
             await _webStoreAppContext.SaveChangesAsync();
             return category.Id;
-        }
-
-        public async Task<int> Delete(int id)
-        {
-            var category = await _webStoreAppContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            _webStoreAppContext.Remove(category);
-            await _webStoreAppContext.SaveChangesAsync();
-            return category.Id;
-        }
+        }}
 
         public async Task<List<Category>> GetAll()
         {
