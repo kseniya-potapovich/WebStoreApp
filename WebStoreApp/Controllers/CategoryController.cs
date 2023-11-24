@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreApp.DataAccess;
+using WebStoreApp.Dto;
+using WebStoreApp.Services.Contract;
 using WedStoreApp.Entities;
 
 namespace WebStoreApp.Controllers
@@ -9,34 +11,23 @@ namespace WebStoreApp.Controllers
     [Route("[controller]")]
     public class CategoryController: ControllerBase
     {
-        public readonly WebStoreAppDbContext _webStoreAppContext;
+        public readonly ICategoryService _categoryService;
 
-        public CategoryController(WebStoreAppDbContext webStoreAppContext)
+        public CategoryController(ICategoryService categoryService)
         {
-            _webStoreAppContext = webStoreAppContext;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetAll()
+        public async Task<ActionResult<CategoryDto>> GetById(int id)
         {
-            return await _webStoreAppContext.Categories.ToListAsync();
+            return await _categoryService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Category category)
+        public async Task<ActionResult<int>> Create([FromBody] CategoryDto category)
         {
-            await _webStoreAppContext.Categories.AddAsync(category);
-            await _webStoreAppContext.SaveChangesAsync();
-            return category.Id;
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<int>> Delete([FromBody] int categoryId)
-        {
-            var category = await _webStoreAppContext.Orders.FirstOrDefaultAsync(x => x.Id == categoryId);
-            _webStoreAppContext.Remove(category);
-            await _webStoreAppContext.SaveChangesAsync();
-            return category.Id;
+           return await _categoryService.Create(category);
         }
     }
 }

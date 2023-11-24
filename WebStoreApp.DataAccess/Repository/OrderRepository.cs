@@ -27,9 +27,9 @@ namespace WebStoreApp.DataAccess.Repository
             return await _webStoreAppContext.Orders.ToListAsync();
         }
 
-        public Task<Order> GetById(int id)
+        public async Task<Order> GetById(int id)
         {
-            throw new NotImplementedException();
+            return _webStoreAppContext.Orders.FirstOrDefault(o => o.Id == id);
         }
     }
 }

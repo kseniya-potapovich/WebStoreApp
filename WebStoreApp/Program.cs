@@ -4,6 +4,7 @@ using WebStoreApp.DataAccess.Repository;
 using WebStoreApp.DataAccess.Repository.Concracts;
 using WebStoreApp.Services.Contract;
 using WebStoreApp.Services;
+using WebStoreApp.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,23 @@ if (string.IsNullOrEmpty(connectionString))
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddAutoMapper(typeof(UserProfile));
+
+builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<ISellerService, SellerService>();
+builder.Services.AddAutoMapper(typeof(SellerProfile));
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddAutoMapper(typeof(ProductProfile));
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddAutoMapper(typeof(OrderProfile));
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddAutoMapper(typeof(CategoryProfile));
 
 builder.Services.AddDbContext<WebStoreAppDbContext>(options => options.UseSqlServer(connectionString));
 

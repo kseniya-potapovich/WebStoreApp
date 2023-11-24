@@ -22,7 +22,7 @@ namespace WebStoreApp.DataAccess.Repository
 
         public Task<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            return _webStoreAppContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> Create(User user)

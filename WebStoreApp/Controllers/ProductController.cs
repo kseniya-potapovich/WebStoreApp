@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreApp.DataAccess;
+using WebStoreApp.Dto;
+using WebStoreApp.Services;
+using WebStoreApp.Services.Contract;
 using WedStoreApp.Entities;
 
 namespace WebStoreApp.Controllers
@@ -9,35 +12,23 @@ namespace WebStoreApp.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        public readonly WebStoreAppDbContext _webStoreAppContext;
+        public readonly IProductService _productService;
 
-        public ProductController(WebStoreAppDbContext webStoreAppContext)
+        public ProductController(IProductService productService)
         {
-            _webStoreAppContext = webStoreAppContext;
+            _productService = productService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAll()
+        public async Task<ActionResult<ProductDto>> GetById(int id)
         {
-            return await _webStoreAppContext.Products.ToListAsync();
+            return await _productService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Product product)
+        public async Task<ActionResult<int>> Create([FromBody] ProductDto product)
         {
-            await _webStoreAppContext.Products.AddAsync(product);
-            await _webStoreAppContext.SaveChangesAsync();
-            return product.Id;
+            return await _productService.Create(product);
         }
-
-        [HttpDelete]
-        public async Task<ActionResult<int>> Delete([FromBody] int productId)
-        {
-            var product = await _webStoreAppContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
-            _webStoreAppContext.Remove(product);
-            await _webStoreAppContext.SaveChangesAsync();
-            return product.Id;
-        }
-
     }
 }

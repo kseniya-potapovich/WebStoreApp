@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreApp.DataAccess;
+using WebStoreApp.DataAccess.Repository.Concracts;
+using WebStoreApp.Dto;
+using WebStoreApp.Services.Contract;
 using WedStoreApp.Entities;
 
 namespace WebStoreApp.Controllers
@@ -9,34 +12,23 @@ namespace WebStoreApp.Controllers
     [Route("[controller]")]
     public class SellerController: ControllerBase
     {
-        public readonly WebStoreAppDbContext _webStoreAppContext;
+        public readonly ISellerService _sellerService;
 
-        public SellerController(WebStoreAppDbContext webStoreAppContext)
+        public SellerController(ISellerService sellerService)
         {
-            _webStoreAppContext = webStoreAppContext;
+            _sellerService = sellerService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Seller>>> GetAll() 
+        public async Task<ActionResult<SellerDto>> GetById(int id) 
         {
-            return await _webStoreAppContext.Sellers.ToListAsync();
+            return await _sellerService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Seller seller)
+        public async Task<ActionResult<int>> Create([FromBody] SellerDto seller)
         {
-            await _webStoreAppContext.Sellers.AddAsync(seller);
-            await _webStoreAppContext.SaveChangesAsync();
-            return seller.Id;
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<int>> Delete([FromBody] int sellerId)
-        {
-            var seller = await _webStoreAppContext.Sellers.FirstOrDefaultAsync(x => x.Id == sellerId);
-            _webStoreAppContext.Remove(seller);
-            await _webStoreAppContext.SaveChangesAsync();
-            return seller.Id;
+            return await _sellerService.Create(seller);
         }
     }
 }

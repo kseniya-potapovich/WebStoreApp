@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,38 +15,24 @@ namespace WebStoreApp.Services
     public class ProductService : IProductService
     {
         public readonly IProductRepository _productRepository;
+        public readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         public async Task<int> Create(ProductDto product)
         {
-            var productToAdd = new Product()
-            {
-                Name = product.Name,
-                CategoryId = product.CategoryId,
-                SellerId = product.SellerId,
-                Discription = product.Discription,
-                Price = product.Price,
-            };
-
+            var productToAdd = _mapper.Map<Product>(product);
             return await _productRepository.Create(productToAdd);
         }
 
         public async Task<ProductDto> GetById(int id)
         {
             var product = await _productRepository.GetById(id);
-            var result = new ProductDto()
-            {
-                Name = product.Name,
-                CategoryId = product.CategoryId,
-                SellerId= product.SellerId,
-                Discription = product.Discription,
-                Price = product.Price,
-            };
-            return result;
+            return _mapper.Map<ProductDto>(product);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,30 +15,24 @@ namespace WebStoreApp.Services
     public class CategoryService : ICategoryService
     {
         public readonly ICategoryRepository _categoryRepository;
+        public readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
-
 
         public async Task<int> Create(CategoryDto category)
         {
-            var categoryToAdd = new Category()
-            {
-                Name = category.Name,
-            };
+            var categoryToAdd = _mapper.Map<Category>(category);
             return await _categoryRepository.Create(categoryToAdd);
         }
 
         public async Task<CategoryDto> GetById(int id)
         {
             var category = await _categoryRepository.GetById(id);
-            var result = new CategoryDto()
-            {
-                Name=category.Name,
-            };
-            return result;
+            return _mapper.Map<CategoryDto>(category);
         }
     }
 }

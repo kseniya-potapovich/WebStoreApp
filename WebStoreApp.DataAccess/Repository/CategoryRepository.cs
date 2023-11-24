@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebStoreApp.DataAccess.Migrations;
 using WebStoreApp.DataAccess.Repository.Concracts;
 using WedStoreApp.Entities;
 
@@ -20,16 +21,16 @@ namespace WebStoreApp.DataAccess.Repository
             await _webStoreAppContext.Categories.AddAsync(category);
             await _webStoreAppContext.SaveChangesAsync();
             return category.Id;
-        }}
+        }
 
         public async Task<List<Category>> GetAll()
         {
             return await _webStoreAppContext.Categories.ToListAsync();
         }
 
-        public Task<Category> GetById(int id)
+        public async Task<Category> GetById(int id)
         {
-            throw new NotImplementedException();
+            return  _webStoreAppContext.Categories.FirstOrDefault(c => c.Id == id);
         }
     }
-}
+    }

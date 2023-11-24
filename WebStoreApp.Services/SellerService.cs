@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,35 +12,27 @@ using WedStoreApp.Entities;
 
 namespace WebStoreApp.Services
 {
-    public class SellerService : ISellerService
+    public class SellerService: ISellerService
     {
         public readonly ISellerRepository _sellerRepository;
+        public readonly IMapper _mapper;
 
-        public SellerService(ISellerRepository sellerRepository)
+        public SellerService(ISellerRepository sellerRepository, IMapper mapper)
         {
             _sellerRepository = sellerRepository;
+            _mapper = mapper;
         }
 
         public async Task<int> Create(SellerDto seller)
         {
-            var sellerToAdd = new Seller()
-            {
-                NameCompany = seller.NameCompany,
-                Reviews = seller.Reviews
-            };
-
+            var sellerToAdd = _mapper.Map<Seller>(seller);
             return await _sellerRepository.Create(sellerToAdd);
         }
 
         public async Task<SellerDto> GetById(int id)
         {
             var seller = await _sellerRepository.GetById(id);
-            var result = new SellerDto()
-            {
-                NameCompany = seller.NameCompany,
-                Reviews = seller.Reviews
-            };
-            return result;
+            return _mapper.Map<SellerDto>(seller);
         }
     }
 }

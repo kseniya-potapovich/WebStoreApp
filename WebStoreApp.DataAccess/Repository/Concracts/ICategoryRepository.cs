@@ -10,9 +10,7 @@ namespace WebStoreApp.DataAccess.Repository.Concracts
     public interface ICategoryRepository
     {
         Task<Category> GetById(int id);
-
         Task<List<Category>> GetAll();
-
         Task<int> Create(Category category);
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebStoreApp.DataAccess;
+using WebStoreApp.DataAccess.Repository.Concracts;
+using WebStoreApp.Dto;
+using WebStoreApp.Services.Contract;
 using WedStoreApp.Entities;
 
 namespace WebStoreApp.Controllers
@@ -9,34 +12,23 @@ namespace WebStoreApp.Controllers
     [Route("[controller]")]
     public class OrderController: ControllerBase
     {
-        public readonly WebStoreAppDbContext _webStoreAppContext;
+        public readonly IOrderService _orderService;
 
-        public OrderController(WebStoreAppDbContext webStoreAppContext)
+        public OrderController(IOrderService orderService)
         {
-            _webStoreAppContext = webStoreAppContext;
+            _orderService = orderService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAll()
+        public async Task<ActionResult<OrderDto>> GetById(int id)
         {
-            return await _webStoreAppContext.Orders.ToListAsync();
+            return await _orderService.GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Order order)
+        public async Task<ActionResult<int>> Create([FromBody] OrderDto order)
         {
-            await _webStoreAppContext.Orders.AddAsync(order);
-            await _webStoreAppContext.SaveChangesAsync();
-            return order.Id;
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<int>> Delete([FromBody] int orderId)
-        {
-            var order = await _webStoreAppContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
-            _webStoreAppContext.Remove(order);
-            await _webStoreAppContext.SaveChangesAsync();
-            return order.Id;
+           return await _orderService.Create(order);
         }
     }
 }
