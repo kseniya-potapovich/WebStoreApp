@@ -19,7 +19,7 @@ namespace WebStoreApp.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet]
+        [HttpGet("GetById")]
         public async Task<ActionResult<OrderDto>> GetById(int id)
         {
             return await _orderService.GetById(id);
@@ -29,6 +29,12 @@ namespace WebStoreApp.Controllers
         public async Task<ActionResult<int>> Create([FromBody] OrderDto order)
         {
            return await _orderService.Create(order);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<OrderDto>>> GetAll()
+        {
+            return await _orderService.GetAll();
         }
     }
 }

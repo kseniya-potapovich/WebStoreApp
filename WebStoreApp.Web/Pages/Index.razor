@@ -1,0 +1,17 @@
+﻿@page "/"
+
+@using WebStoreApp.Services.Contract
+@using WebStoreApp.Dto
+
+@inject IUserService _userService;
+<PageTitle>Index</PageTitle>
+
+@code{
+    private List<UserDto>? users;
+
+    protected async override Task OnInitializedAsync()
+    {
+        users = await _userService.GetAll();
+    }
+}
+

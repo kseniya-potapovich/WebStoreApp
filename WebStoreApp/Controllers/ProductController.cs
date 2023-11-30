@@ -19,7 +19,7 @@ namespace WebStoreApp.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
+        [HttpGet("GetById")]
         public async Task<ActionResult<ProductDto>> GetById(int id)
         {
             return await _productService.GetById(id);
@@ -29,6 +29,12 @@ namespace WebStoreApp.Controllers
         public async Task<ActionResult<int>> Create([FromBody] ProductDto product)
         {
             return await _productService.Create(product);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ProductDto>>> GetAll()
+        {
+            return await _productService.GetAll();
         }
     }
 }

@@ -7,5 +7,9 @@ namespace WebStoreApp.Services.Contract
         public Task<UserDto> GetById(int id);
 
         Task<int> Create(UserDto user);
+
+        Task<List<UserDto>> GetAll();
+
+        //Task<int> Update(UserDto user);
     }
 }

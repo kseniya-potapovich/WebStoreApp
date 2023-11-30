@@ -34,5 +34,11 @@ namespace WebStoreApp.Services
             var category = await _categoryRepository.GetById(id);
             return _mapper.Map<CategoryDto>(category);
         }
+
+        public async Task<List<CategoryDto>> GetAll()
+        {
+            var categories = await _categoryRepository.GetAll();
+            return _mapper.Map<List<CategoryDto>>(categories);
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace WebStoreApp.Services.Contract
         public Task<CategoryDto> GetById(int id);
 
         public Task<int> Create(CategoryDto category);
+
+        public Task<List<CategoryDto>> GetAll();
     }
 }

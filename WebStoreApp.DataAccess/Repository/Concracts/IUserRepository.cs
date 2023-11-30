@@ -14,5 +14,6 @@ namespace WebStoreApp.DataAccess.Repository.Concracts
         Task<List<User>> GetAll();
 
         Task<int> Create(User user);
+
     }
 }

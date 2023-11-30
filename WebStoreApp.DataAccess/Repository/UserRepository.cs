@@ -31,5 +31,6 @@ namespace WebStoreApp.DataAccess.Repository
             await _webStoreAppContext.SaveChangesAsync();
             return user.Id;
         }
+
     }
 }

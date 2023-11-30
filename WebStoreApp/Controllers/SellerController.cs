@@ -19,7 +19,7 @@ namespace WebStoreApp.Controllers
             _sellerService = sellerService;
         }
 
-        [HttpGet]
+        [HttpGet("GetById")]
         public async Task<ActionResult<SellerDto>> GetById(int id) 
         {
             return await _sellerService.GetById(id);
@@ -29,6 +29,12 @@ namespace WebStoreApp.Controllers
         public async Task<ActionResult<int>> Create([FromBody] SellerDto seller)
         {
             return await _sellerService.Create(seller);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<SellerDto>>> GetAll()
+        {
+            return await _sellerService.GetAll();
         }
     }
 }

@@ -34,5 +34,11 @@ namespace WebStoreApp.Services
             var product = await _productRepository.GetById(id);
             return _mapper.Map<ProductDto>(product);
         }
+
+        public async Task<List<ProductDto>> GetAll()
+        {
+            var products = await _productRepository.GetAll();
+            return _mapper.Map<List<ProductDto>>(products);
+        }
     }
 }

@@ -28,5 +28,11 @@ namespace WebStoreApp.Services
             var user = await _userRepository.GetById(id);
             return _userMapper.Map<UserDto>(user);
         }
+
+        public async Task<List<UserDto>> GetAll()
+        {
+            var users = await _userRepository.GetAll();
+            return _userMapper.Map<List<UserDto>>(users);
+        }
     }
 }

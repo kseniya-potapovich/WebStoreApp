@@ -34,5 +34,11 @@ namespace WebStoreApp.Services
             var seller = await _sellerRepository.GetById(id);
             return _mapper.Map<SellerDto>(seller);
         }
+
+        public async Task<List<SellerDto>> GetAll()
+        {
+            var seller = await _sellerRepository.GetAll();
+            return _mapper.Map<List<SellerDto>>(seller);
+        }
     }
 }
